@@ -1,6 +1,5 @@
 const WebSocket = require('ws');
 
-//server addy
 const serverUrl = 'ws://127.0.0.1:3004';
 
 const ws = new WebSocket(serverUrl);
