@@ -23,11 +23,11 @@ ws.on("open", function () {
    ];
 
    setInterval(() => {
-      let stockPrice = Math.floor(Math.random() * 798);
       // console.log(a);
-      for (i in users) {
-         let val = (users[i].price + stockPrice) * users[i].shares;
-         // ws.send(JSON.stringify(i + " index ----> " + val));
+      for (let i in users) {
+         // let val = (users[i].price + stockPrice) * users[i].shares;
+         // ws.binaryType = "arraybuffer";
+         ws.send(JSON.stringify(users[i]));
          // ws.send({
          //    "message",
          //    val
