@@ -1,5 +1,5 @@
 const { async } = require("@firebase/util");
-const { collection, query, getDocs } = require("firebase/firestore");
+const { collection, query, getDocs, where } = require("firebase/firestore");
 const WebSocket = require("ws");
 
 const { db } = require("./firebase");
@@ -14,14 +14,22 @@ ws.on("open", async function () {
    const q = query(collection(db, "UserInfo"));
    const querySnapshot = await getDocs(q);
    querySnapshot.forEach(async (doc) => {
-      const q = query(collection(db, "UserInfo", doc.data().email, "MyStocks"));
+      const q = query(
+         collection(db, "UserInfo", doc.data().email, "MyStocks")
+         // where("type", "==", "purchase")
+      );
       const querySnapshot = await getDocs(q);
+      let arr = [];
+      querySnapshot.forEach(async (doc) => {
+         // ws.send(JSON.stringify(doc.data()));
+         arr.push({ ticker: doc.data().ticker, email: doc.data().email });
+         console.log(arr);
+      });
 
       // emails.push(doc.data().email);
       // for (let i in emails) {
       // let val = (users[i].price + stockPrice) * users[i].shares;
       // ws.binaryType = "arraybuffer";
-      ws.send(JSON.stringify(doc.data()));
       // ws.send({
       //    "message",
       //    val
