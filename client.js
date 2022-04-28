@@ -19,9 +19,8 @@ ws.on("open", async function () {
          // where("type", "==", "purchase")
       );
       const querySnapshot = await getDocs(q);
-      // let arr = [];
+      let arr = [];
       querySnapshot.forEach(async (doc) => {
-         // ws.send(JSON.stringify(arr));
          const q = query(
             collection(
                db,
@@ -34,8 +33,13 @@ ws.on("open", async function () {
          );
          const querySnapshot = await getDocs(q);
          querySnapshot.forEach(async (doc) => {
-            console.log(doc.data().shares);
+            arr.push({
+               ticker: doc.data().ticker,
+               email: doc.data().email,
+               shares: doc.data().shares,
+            });
          });
+         ws.send(JSON.stringify(arr));
       });
 
       // emails.push(doc.data().email);
