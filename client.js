@@ -1,4 +1,4 @@
-const { addDoc, doc, getFirestore, collection } = require("firebase/firestore");
+const { addDoc, doc, getFirestore, collection, query, getDocs } = require("firebase/firestore");
 const WebSocket = require("ws");
 const { test } = require("./data");
 const { db } = require("./firebase");
@@ -10,6 +10,11 @@ const ws = new WebSocket(serverUrl);
 ws.on("open", function () {
 
 
+   const q = query(collection(db, "UserInfo"));
+   const querySnapshot = await getDocs(q);
+   querySnapshot.forEach(async (doc) => {
+      emails.push(doc.data().email);
+   });
    // setInterval(() => {
       // console.log(a);
       for (let i in users) {

@@ -2,15 +2,14 @@ const { async } = require("@firebase/util");
 const { query, collection, getDocs } = require("firebase/firestore");
 const { db } = require("./firebase");
 
-const emails = [];
-exports.emails = emails;
-export async function test() {
-   const q = query(collection(db, "UserInfo"));
-   const querySnapshot = await getDocs(q);
-   querySnapshot.forEach(async (doc) => {
-      emails.push(doc.data().email);
-   });
-}
+// exports.emails = emails;
+// export async function test() {
+//    const q = query(collection(db, "UserInfo"));
+//    const querySnapshot = await getDocs(q);
+//    querySnapshot.forEach(async (doc) => {
+//       emails.push(doc.data().email);
+//    });
+// }
 
 // const users = [
 //    {
