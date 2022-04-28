@@ -19,11 +19,24 @@ ws.on("open", async function () {
          // where("type", "==", "purchase")
       );
       const querySnapshot = await getDocs(q);
-      let arr = [];
+      // let arr = [];
       querySnapshot.forEach(async (doc) => {
-         // ws.send(JSON.stringify(doc.data()));
-         arr.push({ ticker: doc.data().ticker, email: doc.data().email });
-         console.log(arr);
+         // arr.push({ ticker: doc.data().ticker, email: doc.data().email });
+         // ws.send(JSON.stringify(arr));
+         const q = query(
+            collection(
+               db,
+               "UserInfo",
+               doc.data().email,
+               "MyStocks",
+               doc.data().ticker,
+               "Details"
+            )
+         );
+         const querySnapshot = await getDocs(q);
+         querySnapshot.forEach(async (doc) => {
+            console.log(doc.data());
+         });
       });
 
       // emails.push(doc.data().email);
