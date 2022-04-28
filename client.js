@@ -1,4 +1,7 @@
 const WebSocket = require("ws");
+const { auth, db } = require("./firebase");
+
+
 
 const serverUrl = "ws://localhost:3004";
 

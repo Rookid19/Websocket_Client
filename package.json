@@ -9,6 +9,7 @@
   "author": "Eric Aidoo",
   "license": "ISC",
   "dependencies": {
+    "firebase": "^9.6.11",
     "ws": "^8.5.0"
   }
 }
