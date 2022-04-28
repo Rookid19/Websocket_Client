@@ -9,16 +9,27 @@ const serverUrl = "ws://localhost:3004";
 const ws = new WebSocket(serverUrl);
 
 ws.on("open", async function () {
-   setInterval(async () => {
-      // emails = [];
-      const q = query(collection(db, "UserInfo"));
+   // setInterval(async () => {
+   // emails = [];
+   const q = query(collection(db, "UserInfo"));
+   const querySnapshot = await getDocs(q);
+   querySnapshot.forEach(async (doc) => {
+      const q = query(collection(db, "UserInfo", doc.data().email, "MyStocks"));
       const querySnapshot = await getDocs(q);
-      querySnapshot.forEach(async (doc) => {
-         emails.push(doc.data().email);
-      });
-      // console.log(emails.length);
-  
-   }, 10000);
+
+      // emails.push(doc.data().email);
+      // for (let i in emails) {
+      // let val = (users[i].price + stockPrice) * users[i].shares;
+      // ws.binaryType = "arraybuffer";
+      ws.send(JSON.stringify(doc.data()));
+      // ws.send({
+      //    "message",
+      //    val
+      // })
+      // }
+   });
+   // console.log(emails.length);
+   // }, 1000);
 });
 
 ws.on("message", function (msg) {
