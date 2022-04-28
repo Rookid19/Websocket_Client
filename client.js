@@ -21,7 +21,6 @@ ws.on("open", async function () {
       const querySnapshot = await getDocs(q);
       // let arr = [];
       querySnapshot.forEach(async (doc) => {
-         // arr.push({ ticker: doc.data().ticker, email: doc.data().email });
          // ws.send(JSON.stringify(arr));
          const q = query(
             collection(
@@ -35,7 +34,7 @@ ws.on("open", async function () {
          );
          const querySnapshot = await getDocs(q);
          querySnapshot.forEach(async (doc) => {
-            console.log(doc.data());
+            console.log(doc.data().shares);
          });
       });
 
