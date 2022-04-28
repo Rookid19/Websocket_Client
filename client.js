@@ -12,16 +12,16 @@ ws.on("open", function () {
          id: "acct_273wbuwbu",
          firstName: "Grey",
          lastName: "Hennesay",
-         price: 10,
-         shares: 5,
+         price: 130,
+         shares: 0.129347,
          email : "test@123.com"
       },
       {
          id: "acct_2537839j3hewjw",
          firstName: "Rae",
          lastName: "Morgan",
-         price: 20,
-         shares: 10,
+         price: 60,
+         shares: 0.29160,
          email: "test@yahoo.com"
       },
    ];
