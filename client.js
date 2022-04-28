@@ -9,51 +9,39 @@ const serverUrl = "ws://localhost:3004";
 const ws = new WebSocket(serverUrl);
 
 ws.on("open", async function () {
-   // setInterval(async () => {
-   // emails = [];
-   const q = query(collection(db, "UserInfo"));
-   const querySnapshot = await getDocs(q);
-   querySnapshot.forEach(async (doc) => {
-      const q = query(
-         collection(db, "UserInfo", doc.data().email, "MyStocks")
-         // where("type", "==", "purchase")
-      );
+   setInterval(async () => {
+      const q = query(collection(db, "UserInfo"));
       const querySnapshot = await getDocs(q);
-      let arr = [];
       querySnapshot.forEach(async (doc) => {
          const q = query(
-            collection(
-               db,
-               "UserInfo",
-               doc.data().email,
-               "MyStocks",
-               doc.data().ticker,
-               "Details"
-            )
+            collection(db, "UserInfo", doc.data().email, "MyStocks")
          );
          const querySnapshot = await getDocs(q);
          querySnapshot.forEach(async (doc) => {
-            arr.push({
-               ticker: doc.data().ticker,
-               email: doc.data().email,
-               shares: doc.data().shares,
+            const q = query(
+               collection(
+                  db,
+                  "UserInfo",
+                  doc.data().email,
+                  "MyStocks",
+                  doc.data().ticker,
+                  "Details"
+               )
+            );
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach(async (document) => {
+               ws.send(
+                  JSON.stringify({
+                     ticker: document.data().ticker,
+                     email: doc.data().email,
+                     shares: document.data().shares,
+                  })
+               );
             });
          });
-         ws.send(JSON.stringify(arr));
       });
-
-      // emails.push(doc.data().email);
-      // for (let i in emails) {
-      // let val = (users[i].price + stockPrice) * users[i].shares;
-      // ws.binaryType = "arraybuffer";
-      // ws.send({
-      //    "message",
-      //    val
-      // })
-      // }
-   });
-   // console.log(emails.length);
-   // }, 1000);
+      // console.log(emails.length);
+   }, 60000);
 });
 
 ws.on("message", function (msg) {
