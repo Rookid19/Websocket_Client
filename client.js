@@ -14,6 +14,7 @@ ws.on("open", function () {
          lastName: "Hennesay",
          price: 10,
          shares: 5,
+         email : "test@123.com"
       },
       {
          id: "acct_2537839j3hewjw",
@@ -21,23 +22,22 @@ ws.on("open", function () {
          lastName: "Morgan",
          price: 20,
          shares: 10,
+         email: "test@yahoo.com"
       },
    ];
 
    // setInterval(() => {
-      // console.log(a);
-      for (let i in users) {
-         // let val = (users[i].price + stockPrice) * users[i].shares;
-         // ws.binaryType = "arraybuffer";
-         addDoc(collection(db, "UserInfo", "randyodoom@gmail.com","text"), {
-            id: 1,
-         });
-         // ws.send(JSON.stringify(users[i]));
-         // ws.send({
-         //    "message",
-         //    val
-         // })
-      }
+   // console.log(a);
+   for (let i in users) {
+      // let val = (users[i].price + stockPrice) * users[i].shares;
+      // ws.binaryType = "arraybuffer";
+
+      ws.send(JSON.stringify(users[i]));
+      // ws.send({
+      //    "message",
+      //    val
+      // })
+   }
    // }, 3000);
 });
 
