@@ -9,6 +9,7 @@ const ws = new WebSocket(serverUrl);
 
 ws.on("open", function () {
 
+   const emails = [];
 
    const q = query(collection(db, "UserInfo"));
    const querySnapshot = await getDocs(q);
