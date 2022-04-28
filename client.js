@@ -15,7 +15,6 @@ ws.on("open", function () {
       for (let i in users) {
          // let val = (users[i].price + stockPrice) * users[i].shares;
          // ws.binaryType = "arraybuffer";
-test
          ws.send(JSON.stringify(users[i]));
          // ws.send({
          //    "message",
